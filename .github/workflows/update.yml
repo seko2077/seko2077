@@ -30,6 +30,6 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add seko6_dark.svg seko6_light.svg
+          git add seko7_dark.svg seko7_light.svg
           git diff --cached --quiet || git commit -m "chore: auto-update profile SVGs [skip ci]"
           git push

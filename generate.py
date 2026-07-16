@@ -176,22 +176,21 @@ def generate_svg(mode):
       </feMerge>
     </filter>
     <!-- System melting virus glitch for whoami -->
-    <filter id="melt-glitch" x="-20%" y="-40%" width="140%" height="180%">
+    <filter id="melt-glitch" x="-10%" y="-20%" width="120%" height="140%">
       <!-- chromatic aberration -->
-      <feOffset in="SourceGraphic" dx="-4" dy="1" result="shift1"/>
-      <feOffset in="SourceGraphic" dx="4" dy="-1" result="shift2"/>
+      <feOffset in="SourceGraphic" dx="-2" dy="2" result="shift1"/>
+      <feOffset in="SourceGraphic" dx="2" dy="-2" result="shift2"/>
       <feMerge result="split">
         <feMergeNode in="shift1"/>
         <feMergeNode in="shift2"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
-      <!-- vertical melt blur -->
-      <feGaussianBlur in="split" stdDeviation="0 3" result="melt"/>
-      <feTurbulence type="fractalNoise" baseFrequency="0.01 0.2" numOctaves="2" seed="5" result="noise">
-        <animate attributeName="seed" values="1;20;40;1" dur="1s" repeatCount="indefinite"/>
+      <!-- vertical melt without destroying text -->
+      <feTurbulence type="fractalNoise" baseFrequency="0.1 0.5" numOctaves="1" seed="5" result="noise">
+        <animate attributeName="seed" values="1;10;20;1" dur="0.5s" repeatCount="indefinite"/>
       </feTurbulence>
-      <feDisplacementMap in="melt" in2="noise" scale="15" xChannelSelector="R" yChannelSelector="G">
-        <animate attributeName="scale" values="5;20;5;15;5;25;10;5" dur="1s" repeatCount="indefinite"/>
+      <feDisplacementMap in="split" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G">
+        <animate attributeName="scale" values="2;8;2;6;2" dur="0.5s" repeatCount="indefinite"/>
       </feDisplacementMap>
     </filter>
     <!-- Pill gradients -->
@@ -261,9 +260,9 @@ def generate_svg(mode):
   <!-- Name — Watch Dogs 1: Virus glitch sequence -->
   <g font-family="'Hacked', 'Impact', sans-serif" text-anchor="middle" letter-spacing="2">
     
-    <!-- State 1: HI, I'M SAIF (0s - 5s) -->
+    <!-- State 1: Hello There . (0s - 5s) -->
     <text x="{LP//2}" y="80" font-size="48" font-weight="900" fill="#ffffff" filter="url(#wd-glitch)">
-      HI, I'M SAIF
+      Hello There .
       <animate attributeName="opacity" values="1; 1; 0; 0; 1" keyTimes="0; 0.45; 0.451; 0.999; 1" dur="11s" repeatCount="indefinite"/>
     </text>
 
@@ -371,7 +370,7 @@ def generate_svg(mode):
 
 </svg>"""
 
-    out = os.path.join(HERE, f"seko6_{mode}.svg")
+    out = os.path.join(HERE, f"seko7_{mode}.svg")
     with open(out, "w", encoding="utf-8") as fh:
         fh.write(svg)
     print(f"  wrote {out}  ({W}x{H})")
