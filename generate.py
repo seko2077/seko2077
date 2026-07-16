@@ -64,7 +64,7 @@ PILLS = [
     ("Git",                  "#F05032", "#B91C1C"),
     ("Cybersecurity",        "#A855F7", "#7E22CE"),
     ("3D Printing",          "#F472B6", "#DB2777"),
-    ("Electronics & Robotics","#34D399","#059669"),
+    ("Electronics &amp; Robotics","#34D399","#059669"),
 ]
 
 
