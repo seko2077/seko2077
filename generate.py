@@ -231,13 +231,13 @@ def generate_svg(mode):
   <!-- Name — Watch Dogs 1: B&W + hard glitch bursts -->
   <!-- Shadow layer (offset, semi-transparent = depth) -->
   <text x="{LP//2 + 2}" y="72" text-anchor="middle"
-        font-family="system-ui,-apple-system,sans-serif"
-        font-size="34" font-weight="900" fill="#ffffff" opacity="0.15">Hi, I'm Saif</text>
+        font-family="'Impact', 'Arial Black', sans-serif"
+        font-size="44" font-weight="900" fill="#ffffff" opacity="0.15" letter-spacing="1">HI, I'M SAIF</text>
   <!-- Main text: desaturated + glitch filter -->
   <text x="{LP//2}" y="70" text-anchor="middle"
-        font-family="system-ui,-apple-system,sans-serif"
-        font-size="34" font-weight="900" fill="#ffffff"
-        filter="url(#wd-glitch)">Hi, I'm Saif &#x1F44B;
+        font-family="'Impact', 'Arial Black', sans-serif"
+        font-size="44" font-weight="900" fill="#ffffff" letter-spacing="1"
+        filter="url(#wd-glitch)">HI, I'M SAIF &#x1F44B;
     <!-- scan-line reveal animation -->
     <animate attributeName="opacity" values="0.85;1;0.9;1;0.85" dur="2.5s" repeatCount="indefinite"/>
   </text>
@@ -258,17 +258,17 @@ def generate_svg(mode):
 
   <line x1="28" y1="150" x2="{LP-28}" y2="150" stroke="{bdrB}" stroke-width="1"/>
 
-  <!-- Stats — evenly centered in thirds of LP -->
+  <!-- Stats — evenly centered in thirds of LP and pushed down to vertical center -->
   <g font-family="system-ui,-apple-system,sans-serif" text-anchor="middle">
-    <g transform="translate({LP//6}, 168)">
+    <g transform="translate({LP//6}, 290)">
       <text font-size="44" font-weight="900" fill="{CYN}" filter="url(#glow)">{fol}</text>
       <text y="36" font-size="13" fill="{tmut}">followers</text>
     </g>
-    <g transform="translate({LP//2}, 168)">
+    <g transform="translate({LP//2}, 290)">
       <text font-size="44" font-weight="900" fill="{PRP}" filter="url(#glow)">{fing}</text>
       <text y="36" font-size="13" fill="{tmut}">following</text>
     </g>
-    <g transform="translate({LP*5//6}, 168)">
+    <g transform="translate({LP*5//6}, 290)">
       <text font-size="44" font-weight="900" fill="{GRN}" filter="url(#glow)">{rep}</text>
       <text y="36" font-size="13" fill="{tmut}">repos</text>
     </g>
@@ -332,7 +332,7 @@ def generate_svg(mode):
 
 </svg>"""
 
-    out = os.path.join(HERE, f"seko_{mode}.svg")
+    out = os.path.join(HERE, f"seko2077_{mode}.svg")
     with open(out, "w", encoding="utf-8") as fh:
         fh.write(svg)
     print(f"  wrote {out}  ({W}x{H})")
