@@ -5,7 +5,7 @@ The logo (seko2077.png) is displayed separately in README.md as a plain
 markdown <img> which GitHub always renders reliably.
 """
 
-import os, struct, json, urllib.request
+import os, struct, json, urllib.request, base64
 
 HERE        = os.path.dirname(os.path.abspath(__file__))
 AVATAR_PATH = os.path.join(HERE, "seko2077.png")
@@ -34,6 +34,13 @@ def fetch_stats(user):
 GH_USER = os.environ.get("GH_USER", "seko2077")
 stats   = fetch_stats(GH_USER) or {"followers": 3, "following": 7, "repos": 4}
 print(f"Stats: {stats}")
+
+# ── Load Font ───────────────────────────────────────────────────────────────
+FONT_PATH = os.path.join(HERE, "fonts", "hacked-kerx.ttf")
+font_b64 = ""
+if os.path.exists(FONT_PATH):
+    with open(FONT_PATH, "rb") as f:
+        font_b64 = base64.b64encode(f.read()).decode("utf-8")
 
 # ── Config ──────────────────────────────────────────────────────────────────
 W     = 1200
@@ -139,6 +146,12 @@ def generate_svg(mode):
       <stop offset="0%"   stop-color="{CYN}"><animate attributeName="stop-color" values="{CYN};{PRP};{GRN};{CYN}" dur="8s" repeatCount="indefinite"/></stop>
       <stop offset="100%" stop-color="{PRP}"><animate attributeName="stop-color" values="{PRP};{GRN};{CYN};{PRP}" dur="8s" repeatCount="indefinite"/></stop>
     </linearGradient>
+    <style>
+      @font-face {{
+        font-family: 'Hacked';
+        src: url('data:font/ttf;charset=utf-8;base64,{font_b64}') format('truetype');
+      }}
+    </style>
     <!-- Watch Dogs 1 style: monochrome glitch on name -->
     <!-- Layer 1: hard horizontal displacement that fires in bursts -->
     <filter id="wd-glitch" x="-8%" y="-40%" width="116%" height="180%">
@@ -230,13 +243,13 @@ def generate_svg(mode):
 
   <!-- Name — Watch Dogs 1: B&W + hard glitch bursts -->
   <!-- Shadow layer (offset, semi-transparent = depth) -->
-  <text x="{LP//2 + 2}" y="72" text-anchor="middle"
-        font-family="'Impact', 'Arial Black', sans-serif"
-        font-size="44" font-weight="900" fill="#ffffff" opacity="0.15" letter-spacing="1">HI, I'M SAIF</text>
+  <text x="{LP//2 + 2}" y="82" text-anchor="middle"
+        font-family="'Hacked', 'Impact', sans-serif"
+        font-size="64" font-weight="900" fill="#ffffff" opacity="0.15" letter-spacing="1">HI, I'M SAIF</text>
   <!-- Main text: desaturated + glitch filter -->
-  <text x="{LP//2}" y="70" text-anchor="middle"
-        font-family="'Impact', 'Arial Black', sans-serif"
-        font-size="44" font-weight="900" fill="#ffffff" letter-spacing="1"
+  <text x="{LP//2}" y="80" text-anchor="middle"
+        font-family="'Hacked', 'Impact', sans-serif"
+        font-size="64" font-weight="900" fill="#ffffff" letter-spacing="1"
         filter="url(#wd-glitch)">HI, I'M SAIF &#x1F44B;
     <!-- scan-line reveal animation -->
     <animate attributeName="opacity" values="0.85;1;0.9;1;0.85" dur="2.5s" repeatCount="indefinite"/>
@@ -332,7 +345,7 @@ def generate_svg(mode):
 
 </svg>"""
 
-    out = os.path.join(HERE, f"seko2077_{mode}.svg")
+    out = os.path.join(HERE, f"seko3_{mode}.svg")
     with open(out, "w", encoding="utf-8") as fh:
         fh.write(svg)
     print(f"  wrote {out}  ({W}x{H})")
