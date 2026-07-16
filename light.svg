@@ -112,7 +112,7 @@
       <text y="36" font-size="13" fill="#475569">following</text>
     </g>
     <g transform="translate(284, 168)">
-      <text font-size="44" font-weight="900" fill="#10B981" filter="url(#glow)">4</text>
+      <text font-size="44" font-weight="900" fill="#10B981" filter="url(#glow)">3</text>
       <text y="36" font-size="13" fill="#475569">repos</text>
     </g>
   </g>
