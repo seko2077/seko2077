@@ -14,9 +14,9 @@ AVATAR_PATH = os.path.join(HERE, "seko2077.png")
 with open(AVATAR_PATH, "rb") as f:
     AVATAR_B64 = base64.b64encode(f.read()).decode()
 
-# PNG natural dimensions
+# PNG natural dimensions (8-byte sig + 4-byte chunk length + 4-byte "IHDR" = skip 16)
 with open(AVATAR_PATH, "rb") as f:
-    f.read(12)
+    f.read(16)            # skip: 8 sig + 4 IHDR-length + 4 "IHDR" label
     IMG_W = struct.unpack(">I", f.read(4))[0]
     IMG_H = struct.unpack(">I", f.read(4))[0]
 
