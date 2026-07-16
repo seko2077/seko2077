@@ -332,7 +332,7 @@ def generate_svg(mode):
 
 </svg>"""
 
-    out = os.path.join(HERE, f"banner_{mode}.svg")
+    out = os.path.join(HERE, f"seko_{mode}.svg")
     with open(out, "w", encoding="utf-8") as fh:
         fh.write(svg)
     print(f"  wrote {out}  ({W}x{H})")
