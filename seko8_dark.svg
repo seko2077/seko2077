@@ -37,20 +37,12 @@
     </filter>
     <!-- System melting virus glitch for whoami -->
     <filter id="melt-glitch" x="-10%" y="-20%" width="120%" height="140%">
-      <!-- chromatic aberration -->
-      <feOffset in="SourceGraphic" dx="-2" dy="2" result="shift1"/>
-      <feOffset in="SourceGraphic" dx="2" dy="-2" result="shift2"/>
-      <feMerge result="split">
-        <feMergeNode in="shift1"/>
-        <feMergeNode in="shift2"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-      <!-- vertical melt without destroying text -->
+      <!-- vertical melt without destroying text (removed chromatic aberration duplication) -->
       <feTurbulence type="fractalNoise" baseFrequency="0.1 0.5" numOctaves="1" seed="5" result="noise">
         <animate attributeName="seed" values="1;10;20;1" dur="0.5s" repeatCount="indefinite"/>
       </feTurbulence>
-      <feDisplacementMap in="split" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G">
-        <animate attributeName="scale" values="2;8;2;6;2" dur="0.5s" repeatCount="indefinite"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G">
+        <animate attributeName="scale" values="1;4;1;3;1" dur="0.5s" repeatCount="indefinite"/>
       </feDisplacementMap>
     </filter>
     <!-- Pill gradients -->
@@ -135,7 +127,7 @@
     </text>
 
     <!-- State 2: whoami (5s - 8s) -->
-    <text x="180" y="80" font-size="48" font-weight="900" fill="#00FF00" filter="url(#melt-glitch)">
+    <text x="180" y="80" font-size="48" font-weight="900" fill="#10B981" filter="url(#melt-glitch)">
       whoami
       <animate attributeName="opacity" values="0; 0; 1; 1; 0; 0" keyTimes="0; 0.45; 0.451; 0.726; 0.727; 1" dur="11s" repeatCount="indefinite"/>
     </text>
