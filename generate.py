@@ -57,12 +57,14 @@ PHRASES = [
 ]
 
 PILLS = [
-    ("Python",        "#EAB308", "#CA8A04"),
-    ("AWS",           "#FF9900", "#C2410C"),
-    ("Docker",        "#38BDF8", "#0EA5E9"),
-    ("PostgreSQL",    "#4F8DC1", "#2C5282"),
-    ("Git",           "#F05032", "#B91C1C"),
-    ("Cybersecurity", "#A855F7", "#7E22CE"),
+    ("Python",               "#EAB308", "#CA8A04"),
+    ("AWS",                  "#FF9900", "#C2410C"),
+    ("Docker",               "#38BDF8", "#0EA5E9"),
+    ("PostgreSQL",           "#4F8DC1", "#2C5282"),
+    ("Git",                  "#F05032", "#B91C1C"),
+    ("Cybersecurity",        "#A855F7", "#7E22CE"),
+    ("3D Printing",          "#F472B6", "#DB2777"),
+    ("Electronics & Robotics","#34D399","#059669"),
 ]
 
 

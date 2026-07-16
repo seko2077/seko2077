@@ -19,6 +19,8 @@
     <linearGradient id="pg3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#4F8DC1"/><stop offset="100%" stop-color="#2C5282"/></linearGradient>
     <linearGradient id="pg4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#F05032"/><stop offset="100%" stop-color="#B91C1C"/></linearGradient>
     <linearGradient id="pg5" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#A855F7"/><stop offset="100%" stop-color="#7E22CE"/></linearGradient>
+    <linearGradient id="pg6" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#F472B6"/><stop offset="100%" stop-color="#DB2777"/></linearGradient>
+    <linearGradient id="pg7" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#34D399"/><stop offset="100%" stop-color="#059669"/></linearGradient>
     
     <!-- Radial glows -->
     <radialGradient id="g-cyn" cx="50%" cy="50%" r="50%">
@@ -244,6 +246,20 @@
         </rect>
         <text x="90" y="29" fill="url(#pg5)" font-size="16" font-weight="800"
               text-anchor="middle" font-family="system-ui,-apple-system,sans-serif">Cybersecurity</text>
+      </g>
+      <g transform="translate(0,128)">
+        <rect width="159" height="46" rx="9" fill="#F0F4F8" stroke="url(#pg6)" stroke-width="1.8">
+          <animate attributeName="stroke-width" values="1.8;3.2;1.8" dur="4.3s" repeatCount="indefinite"/>
+        </rect>
+        <text x="79" y="29" fill="url(#pg6)" font-size="16" font-weight="800"
+              text-anchor="middle" font-family="system-ui,-apple-system,sans-serif">3D Printing</text>
+      </g>
+      <g transform="translate(210,128)">
+        <rect width="280" height="46" rx="9" fill="#F0F4F8" stroke="url(#pg7)" stroke-width="1.8">
+          <animate attributeName="stroke-width" values="1.8;3.2;1.8" dur="4.7s" repeatCount="indefinite"/>
+        </rect>
+        <text x="140" y="29" fill="url(#pg7)" font-size="16" font-weight="800"
+              text-anchor="middle" font-family="system-ui,-apple-system,sans-serif">Electronics & Robotics</text>
       </g></g>
     </g>
 
