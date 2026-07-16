@@ -155,43 +155,43 @@ def generate_svg(mode):
     <!-- Watch Dogs 1 style: monochrome glitch on name -->
     <!-- Layer 1: hard horizontal displacement that fires in bursts -->
     <filter id="wd-glitch" x="-8%" y="-40%" width="116%" height="180%">
-      <!-- desaturate to B&W -->
-      <feColorMatrix type="saturate" values="0" result="bw"/>
       <!-- chromatic aberration: red channel shifted left -->
-      <feOffset in="bw" dx="-3" dy="0" result="r-shift"/>
+      <feOffset in="SourceGraphic" dx="-3" dy="0" result="r-shift"/>
       <!-- horizontal slice glitch -->
       <feTurbulence type="fractalNoise" baseFrequency="0.0 0.9" numOctaves="1"
                     seed="3" result="slice-n">
         <animate attributeName="seed" values="3;7;12;3" dur="3s" repeatCount="indefinite"/>
       </feTurbulence>
-      <feDisplacementMap in="bw" in2="slice-n" scale="0"
+      <feDisplacementMap in="SourceGraphic" in2="slice-n" scale="0"
                          xChannelSelector="R" yChannelSelector="G" result="sliced">
         <!-- continuous aggressive virus glitch -->
         <animate attributeName="scale"
                  values="12;5;25;0;10;15;0;8;22;5;0;15;8;0;20;12"
                  dur="1.5s" repeatCount="indefinite"/>
       </feDisplacementMap>
-      <!-- merge: sliced on top, B&W base behind -->
+      <!-- merge: sliced on top, base behind -->
       <feMerge>
-        <feMergeNode in="bw"/>
+        <feMergeNode in="SourceGraphic"/>
         <feMergeNode in="sliced"/>
       </feMerge>
     </filter>
     <!-- System melting virus glitch for whoami -->
     <filter id="melt-glitch" x="-20%" y="-40%" width="140%" height="180%">
-      <feColorMatrix type="saturate" values="2" result="sat"/>
-      <feOffset in="sat" dx="-6" dy="2" result="shift1"/>
-      <feOffset in="sat" dx="6" dy="-2" result="shift2"/>
+      <!-- chromatic aberration -->
+      <feOffset in="SourceGraphic" dx="-4" dy="1" result="shift1"/>
+      <feOffset in="SourceGraphic" dx="4" dy="-1" result="shift2"/>
       <feMerge result="split">
         <feMergeNode in="shift1"/>
         <feMergeNode in="shift2"/>
-        <feMergeNode in="sat"/>
+        <feMergeNode in="SourceGraphic"/>
       </feMerge>
-      <feTurbulence type="fractalNoise" baseFrequency="0.05 0.95" numOctaves="2" seed="5" result="noise">
-        <animate attributeName="seed" values="1;50;100;1" dur="1s" repeatCount="indefinite"/>
+      <!-- vertical melt blur -->
+      <feGaussianBlur in="split" stdDeviation="0 3" result="melt"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.01 0.2" numOctaves="2" seed="5" result="noise">
+        <animate attributeName="seed" values="1;20;40;1" dur="1s" repeatCount="indefinite"/>
       </feTurbulence>
-      <feDisplacementMap in="split" in2="noise" scale="40" xChannelSelector="R" yChannelSelector="G">
-        <animate attributeName="scale" values="20;50;10;60;0;40;15;70;20;50" dur="0.8s" repeatCount="indefinite"/>
+      <feDisplacementMap in="melt" in2="noise" scale="15" xChannelSelector="R" yChannelSelector="G">
+        <animate attributeName="scale" values="5;20;5;15;5;25;10;5" dur="1s" repeatCount="indefinite"/>
       </feDisplacementMap>
     </filter>
     <!-- Pill gradients -->
@@ -274,7 +274,7 @@ def generate_svg(mode):
     </text>
 
     <!-- State 3: S A I F (8s - 11s) -->
-    <text x="{LP//2}" y="80" font-size="56" font-weight="900" fill="#FF0000" filter="url(#wd-glitch)">
+    <text x="{LP//2}" y="80" font-size="56" font-weight="900" fill="#CC0000" filter="url(#wd-glitch)">
       S A I F
       <animate attributeName="opacity" values="0; 0; 1; 1; 0" keyTimes="0; 0.726; 0.727; 0.999; 1" dur="11s" repeatCount="indefinite"/>
     </text>
@@ -371,7 +371,7 @@ def generate_svg(mode):
 
 </svg>"""
 
-    out = os.path.join(HERE, f"seko5_{mode}.svg")
+    out = os.path.join(HERE, f"seko6_{mode}.svg")
     with open(out, "w", encoding="utf-8") as fh:
         fh.write(svg)
     print(f"  wrote {out}  ({W}x{H})")
