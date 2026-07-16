@@ -139,12 +139,31 @@ def generate_svg(mode):
       <stop offset="0%"   stop-color="{CYN}"><animate attributeName="stop-color" values="{CYN};{PRP};{GRN};{CYN}" dur="8s" repeatCount="indefinite"/></stop>
       <stop offset="100%" stop-color="{PRP}"><animate attributeName="stop-color" values="{PRP};{GRN};{CYN};{PRP}" dur="8s" repeatCount="indefinite"/></stop>
     </linearGradient>
-    <!-- Name gradient (ASCIIText hue effect) -->
-    <linearGradient id="name-g" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%"   stop-color="{CYN}"><animate attributeName="stop-color" values="{CYN};{PRP};{CYN}" dur="6s" repeatCount="indefinite"/></stop>
-      <stop offset="50%"  stop-color="{PRP}"><animate attributeName="stop-color" values="{PRP};{GRN};{PRP}" dur="6s" repeatCount="indefinite"/></stop>
-      <stop offset="100%" stop-color="{GRN}"><animate attributeName="stop-color" values="{GRN};{CYN};{GRN}" dur="6s" repeatCount="indefinite"/></stop>
-    </linearGradient>
+    <!-- Watch Dogs 1 style: monochrome glitch on name -->
+    <!-- Layer 1: hard horizontal displacement that fires in bursts -->
+    <filter id="wd-glitch" x="-8%" y="-40%" width="116%" height="180%">
+      <!-- desaturate to B&W -->
+      <feColorMatrix type="saturate" values="0" result="bw"/>
+      <!-- chromatic aberration: red channel shifted left -->
+      <feOffset in="bw" dx="-3" dy="0" result="r-shift"/>
+      <!-- horizontal slice glitch -->
+      <feTurbulence type="fractalNoise" baseFrequency="0.0 0.9" numOctaves="1"
+                    seed="3" result="slice-n">
+        <animate attributeName="seed" values="3;7;12;3" dur="3s" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="bw" in2="slice-n" scale="0"
+                         xChannelSelector="R" yChannelSelector="G" result="sliced">
+        <!-- glitch fires briefly, randomly -->
+        <animate attributeName="scale"
+                 values="0;0;0;0;0;0;0;0;18;0;0;0;12;0;0;0;0;0;0;0;0;0;22;0"
+                 dur="4s" repeatCount="indefinite"/>
+      </feDisplacementMap>
+      <!-- merge: sliced on top, B&W base behind -->
+      <feMerge>
+        <feMergeNode in="bw"/>
+        <feMergeNode in="sliced"/>
+      </feMerge>
+    </filter>
     <!-- Pill gradients -->
     {pg}
     <!-- Radial glows -->
@@ -209,11 +228,24 @@ def generate_svg(mode):
   <rect x="{LP-4}" y="0" width="4" height="{H}" fill="url(#lp-fade)"/>
   <line x1="{LP}" y1="0" x2="{LP}" y2="{H}" stroke="{bdrB}" stroke-width="1.5"/>
 
-  <!-- Name (ASCIIText port: animated gradient + wave filter) -->
+  <!-- Name — Watch Dogs 1: B&W + hard glitch bursts -->
+  <!-- Shadow layer (offset, semi-transparent = depth) -->
+  <text x="{LP//2 + 2}" y="72" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="34" font-weight="900" fill="#ffffff" opacity="0.15">Hi, I'm Saif</text>
+  <!-- Main text: desaturated + glitch filter -->
   <text x="{LP//2}" y="70" text-anchor="middle"
         font-family="system-ui,-apple-system,sans-serif"
-        font-size="34" font-weight="900"
-        fill="url(#name-g)" filter="url(#wave)">Hi, I'm Saif &#x1F44B;</text>
+        font-size="34" font-weight="900" fill="#ffffff"
+        filter="url(#wd-glitch)">Hi, I'm Saif &#x1F44B;
+    <!-- scan-line reveal animation -->
+    <animate attributeName="opacity" values="0.85;1;0.9;1;0.85" dur="2.5s" repeatCount="indefinite"/>
+  </text>
+  <!-- ctOS bracket decorators -->
+  <text x="{LP//2 - 140}" y="70" font-family="'Courier New',monospace"
+        font-size="22" fill="#ffffff" opacity="0.25" font-weight="400">[</text>
+  <text x="{LP//2 + 126}" y="70" font-family="'Courier New',monospace"
+        font-size="22" fill="#ffffff" opacity="0.25" font-weight="400">]</text>
 
   <text x="{LP//2}" y="106" text-anchor="middle"
         font-family="'Courier New',monospace"
@@ -226,9 +258,9 @@ def generate_svg(mode):
 
   <line x1="28" y1="150" x2="{LP-28}" y2="150" stroke="{bdrB}" stroke-width="1"/>
 
-  <!-- Stats (live — GitHub Actions updates every 6h) -->
+  <!-- Stats — evenly centered in thirds of LP -->
   <g font-family="system-ui,-apple-system,sans-serif" text-anchor="middle">
-    <g transform="translate({LP//4 - 14}, 168)">
+    <g transform="translate({LP//6}, 168)">
       <text font-size="44" font-weight="900" fill="{CYN}" filter="url(#glow)">{fol}</text>
       <text y="36" font-size="13" fill="{tmut}">followers</text>
     </g>
@@ -236,7 +268,7 @@ def generate_svg(mode):
       <text font-size="44" font-weight="900" fill="{PRP}" filter="url(#glow)">{fing}</text>
       <text y="36" font-size="13" fill="{tmut}">following</text>
     </g>
-    <g transform="translate({LP*3//4 + 14}, 168)">
+    <g transform="translate({LP*5//6}, 168)">
       <text font-size="44" font-weight="900" fill="{GRN}" filter="url(#glow)">{rep}</text>
       <text y="36" font-size="13" fill="{tmut}">repos</text>
     </g>

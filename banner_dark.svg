@@ -6,12 +6,31 @@
       <stop offset="0%"   stop-color="#22D3EE"><animate attributeName="stop-color" values="#22D3EE;#A855F7;#10B981;#22D3EE" dur="8s" repeatCount="indefinite"/></stop>
       <stop offset="100%" stop-color="#A855F7"><animate attributeName="stop-color" values="#A855F7;#10B981;#22D3EE;#A855F7" dur="8s" repeatCount="indefinite"/></stop>
     </linearGradient>
-    <!-- Name gradient (ASCIIText hue effect) -->
-    <linearGradient id="name-g" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%"   stop-color="#22D3EE"><animate attributeName="stop-color" values="#22D3EE;#A855F7;#22D3EE" dur="6s" repeatCount="indefinite"/></stop>
-      <stop offset="50%"  stop-color="#A855F7"><animate attributeName="stop-color" values="#A855F7;#10B981;#A855F7" dur="6s" repeatCount="indefinite"/></stop>
-      <stop offset="100%" stop-color="#10B981"><animate attributeName="stop-color" values="#10B981;#22D3EE;#10B981" dur="6s" repeatCount="indefinite"/></stop>
-    </linearGradient>
+    <!-- Watch Dogs 1 style: monochrome glitch on name -->
+    <!-- Layer 1: hard horizontal displacement that fires in bursts -->
+    <filter id="wd-glitch" x="-8%" y="-40%" width="116%" height="180%">
+      <!-- desaturate to B&W -->
+      <feColorMatrix type="saturate" values="0" result="bw"/>
+      <!-- chromatic aberration: red channel shifted left -->
+      <feOffset in="bw" dx="-3" dy="0" result="r-shift"/>
+      <!-- horizontal slice glitch -->
+      <feTurbulence type="fractalNoise" baseFrequency="0.0 0.9" numOctaves="1"
+                    seed="3" result="slice-n">
+        <animate attributeName="seed" values="3;7;12;3" dur="3s" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="bw" in2="slice-n" scale="0"
+                         xChannelSelector="R" yChannelSelector="G" result="sliced">
+        <!-- glitch fires briefly, randomly -->
+        <animate attributeName="scale"
+                 values="0;0;0;0;0;0;0;0;18;0;0;0;12;0;0;0;0;0;0;0;0;0;22;0"
+                 dur="4s" repeatCount="indefinite"/>
+      </feDisplacementMap>
+      <!-- merge: sliced on top, B&W base behind -->
+      <feMerge>
+        <feMergeNode in="bw"/>
+        <feMergeNode in="sliced"/>
+      </feMerge>
+    </filter>
     <!-- Pill gradients -->
     <linearGradient id="pg0" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#EAB308"/><stop offset="100%" stop-color="#CA8A04"/></linearGradient>
     <linearGradient id="pg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF9900"/><stop offset="100%" stop-color="#C2410C"/></linearGradient>
@@ -84,11 +103,24 @@
   <rect x="356" y="0" width="4" height="520" fill="url(#lp-fade)"/>
   <line x1="360" y1="0" x2="360" y2="520" stroke="rgba(34,211,238,0.35)" stroke-width="1.5"/>
 
-  <!-- Name (ASCIIText port: animated gradient + wave filter) -->
+  <!-- Name — Watch Dogs 1: B&W + hard glitch bursts -->
+  <!-- Shadow layer (offset, semi-transparent = depth) -->
+  <text x="182" y="72" text-anchor="middle"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="34" font-weight="900" fill="#ffffff" opacity="0.15">Hi, I'm Saif</text>
+  <!-- Main text: desaturated + glitch filter -->
   <text x="180" y="70" text-anchor="middle"
         font-family="system-ui,-apple-system,sans-serif"
-        font-size="34" font-weight="900"
-        fill="url(#name-g)" filter="url(#wave)">Hi, I'm Saif &#x1F44B;</text>
+        font-size="34" font-weight="900" fill="#ffffff"
+        filter="url(#wd-glitch)">Hi, I'm Saif &#x1F44B;
+    <!-- scan-line reveal animation -->
+    <animate attributeName="opacity" values="0.85;1;0.9;1;0.85" dur="2.5s" repeatCount="indefinite"/>
+  </text>
+  <!-- ctOS bracket decorators -->
+  <text x="40" y="70" font-family="'Courier New',monospace"
+        font-size="22" fill="#ffffff" opacity="0.25" font-weight="400">[</text>
+  <text x="306" y="70" font-family="'Courier New',monospace"
+        font-size="22" fill="#ffffff" opacity="0.25" font-weight="400">]</text>
 
   <text x="180" y="106" text-anchor="middle"
         font-family="'Courier New',monospace"
@@ -101,9 +133,9 @@
 
   <line x1="28" y1="150" x2="332" y2="150" stroke="rgba(34,211,238,0.35)" stroke-width="1"/>
 
-  <!-- Stats (live — GitHub Actions updates every 6h) -->
+  <!-- Stats — evenly centered in thirds of LP -->
   <g font-family="system-ui,-apple-system,sans-serif" text-anchor="middle">
-    <g transform="translate(76, 168)">
+    <g transform="translate(60, 168)">
       <text font-size="44" font-weight="900" fill="#22D3EE" filter="url(#glow)">3</text>
       <text y="36" font-size="13" fill="#4B6080">followers</text>
     </g>
@@ -111,7 +143,7 @@
       <text font-size="44" font-weight="900" fill="#A855F7" filter="url(#glow)">7</text>
       <text y="36" font-size="13" fill="#4B6080">following</text>
     </g>
-    <g transform="translate(284, 168)">
+    <g transform="translate(300, 168)">
       <text font-size="44" font-weight="900" fill="#10B981" filter="url(#glow)">4</text>
       <text y="36" font-size="13" fill="#4B6080">repos</text>
     </g>
