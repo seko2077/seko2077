@@ -6,13 +6,14 @@ All three asset effects ported to pure SVG/SMIL (no JS, works on GitHub):
   • CardSwap       → SMIL card-stack animation on the typing phrases
 """
 
-import base64, os, struct
+import os, struct
 
 HERE        = os.path.dirname(os.path.abspath(__file__))
 AVATAR_PATH = os.path.join(HERE, "seko2077.png")
 
-with open(AVATAR_PATH, "rb") as f:
-    AVATAR_B64 = base64.b64encode(f.read()).decode()
+# GitHub CSP blocks base64 data-URIs in SVG <image> elements.
+# Using the raw public URL works and keeps the SVG file small.
+AVATAR_URL  = "https://raw.githubusercontent.com/seko2077/seko2077/main/seko2077.png"
 
 # PNG natural dimensions (8-byte sig + 4-byte chunk length + 4-byte "IHDR" = skip 16)
 with open(AVATAR_PATH, "rb") as f:
@@ -43,7 +44,7 @@ def fetch_stats(user):
         return None
 
 GH_USER = os.environ.get("GH_USER", "seko2077")
-stats   = fetch_stats(GH_USER) or {"followers":3,"following":7,"repos":2}
+stats   = fetch_stats(GH_USER) or {"followers":3,"following":7,"repos":4}
 print(f"Stats: {stats}")
 
 # ── Layout ──────────────────────────────────────────────────────────────────
@@ -309,13 +310,13 @@ def generate_svg(mode):
   {'<g font-family="Courier New,monospace" opacity="0.22">' + ft_grid + '</g>' if dark else ''}
 
   <!-- The logo itself — full bleed, zero crop -->
-  <image href="data:image/png;base64,{AVATAR_B64}"
+  <image href="{AVATAR_URL}"
          x="0" y="0" width="{W}" height="{LOGO_H}"
          preserveAspectRatio="xMidYMid meet"
          filter="url(#glitch)"/>
 
   <!-- Phosphor bloom copy (FaultyTerminal glow effect) -->
-  <image href="data:image/png;base64,{AVATAR_B64}"
+  <image href="{AVATAR_URL}"
          x="0" y="0" width="{W}" height="{LOGO_H}"
          preserveAspectRatio="xMidYMid meet"
          filter="url(#bloom)" opacity="0.25"/>
