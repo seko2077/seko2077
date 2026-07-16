@@ -166,10 +166,10 @@ def generate_svg(mode):
       </feTurbulence>
       <feDisplacementMap in="bw" in2="slice-n" scale="0"
                          xChannelSelector="R" yChannelSelector="G" result="sliced">
-        <!-- glitch fires briefly, randomly -->
+        <!-- continuous aggressive virus glitch -->
         <animate attributeName="scale"
-                 values="0;0;0;0;0;0;0;0;18;0;0;0;12;0;0;0;0;0;0;0;0;0;22;0"
-                 dur="4s" repeatCount="indefinite"/>
+                 values="12;5;25;0;10;15;0;8;22;5;0;15;8;0;20;12"
+                 dur="1.5s" repeatCount="indefinite"/>
       </feDisplacementMap>
       <!-- merge: sliced on top, B&W base behind -->
       <feMerge>
@@ -241,19 +241,28 @@ def generate_svg(mode):
   <rect x="{LP-4}" y="0" width="4" height="{H}" fill="url(#lp-fade)"/>
   <line x1="{LP}" y1="0" x2="{LP}" y2="{H}" stroke="{bdrB}" stroke-width="1.5"/>
 
-  <!-- Name — Watch Dogs 1: B&W + hard glitch bursts -->
-  <!-- Shadow layer (offset, semi-transparent = depth) -->
-  <text x="{LP//2 + 2}" y="82" text-anchor="middle"
-        font-family="'Hacked', 'Impact', sans-serif"
-        font-size="64" font-weight="900" fill="#ffffff" opacity="0.15" letter-spacing="1">HI, I'M SAIF</text>
-  <!-- Main text: desaturated + glitch filter -->
-  <text x="{LP//2}" y="80" text-anchor="middle"
-        font-family="'Hacked', 'Impact', sans-serif"
-        font-size="64" font-weight="900" fill="#ffffff" letter-spacing="1"
-        filter="url(#wd-glitch)">HI, I'M SAIF &#x1F44B;
-    <!-- scan-line reveal animation -->
-    <animate attributeName="opacity" values="0.85;1;0.9;1;0.85" dur="2.5s" repeatCount="indefinite"/>
-  </text>
+  <!-- Name — Watch Dogs 1: Virus glitch sequence -->
+  <g font-family="'Hacked', 'Impact', sans-serif" text-anchor="middle" letter-spacing="2">
+    
+    <!-- State 1: HI, I'M SAIF (0s - 5s) -->
+    <text x="{LP//2}" y="80" font-size="48" font-weight="900" fill="#ffffff" filter="url(#wd-glitch)">
+      HI, I'M SAIF
+      <animate attributeName="opacity" values="1; 1; 0; 0; 1" keyTimes="0; 0.499; 0.5; 0.999; 1" dur="10s" repeatCount="indefinite"/>
+    </text>
+
+    <!-- State 2: whoami (5s - 7s) -->
+    <text x="{LP//2}" y="80" font-size="48" font-weight="900" fill="{RED}" filter="url(#wd-glitch)">
+      whoami
+      <animate attributeName="opacity" values="0; 0; 1; 1; 0; 0" keyTimes="0; 0.499; 0.5; 0.699; 0.7; 1" dur="10s" repeatCount="indefinite"/>
+    </text>
+
+    <!-- State 3: S A I F (7s - 10s) -->
+    <text x="{LP//2}" y="80" font-size="56" font-weight="900" fill="{CYN}" filter="url(#wd-glitch)">
+      S A I F
+      <animate attributeName="opacity" values="0; 0; 1; 1; 0" keyTimes="0; 0.699; 0.7; 0.999; 1" dur="10s" repeatCount="indefinite"/>
+    </text>
+
+  </g>
   <!-- ctOS bracket decorators -->
   <text x="{LP//2 - 140}" y="70" font-family="'Courier New',monospace"
         font-size="22" fill="#ffffff" opacity="0.25" font-weight="400">[</text>
@@ -345,7 +354,7 @@ def generate_svg(mode):
 
 </svg>"""
 
-    out = os.path.join(HERE, f"seko3_{mode}.svg")
+    out = os.path.join(HERE, f"seko4_{mode}.svg")
     with open(out, "w", encoding="utf-8") as fh:
         fh.write(svg)
     print(f"  wrote {out}  ({W}x{H})")
