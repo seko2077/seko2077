@@ -159,7 +159,7 @@
   <!-- Stats — evenly centered in thirds of LP and pushed down to vertical center -->
   <g font-family="system-ui,-apple-system,sans-serif" text-anchor="middle">
     <g transform="translate(60, 290)">
-      <text font-size="44" font-weight="900" fill="#22D3EE" filter="url(#glow)">3</text>
+      <text font-size="44" font-weight="900" fill="#22D3EE" filter="url(#glow)">4</text>
       <text y="36" font-size="13" fill="#4B6080">followers</text>
     </g>
     <g transform="translate(180, 290)">
