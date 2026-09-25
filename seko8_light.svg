@@ -159,11 +159,11 @@
   <!-- Stats — evenly centered in thirds of LP and pushed down to vertical center -->
   <g font-family="system-ui,-apple-system,sans-serif" text-anchor="middle">
     <g transform="translate(60, 290)">
-      <text font-size="44" font-weight="900" fill="#22D3EE" filter="url(#glow)">4</text>
+      <text font-size="44" font-weight="900" fill="#22D3EE" filter="url(#glow)">5</text>
       <text y="36" font-size="13" fill="#475569">followers</text>
     </g>
     <g transform="translate(180, 290)">
-      <text font-size="44" font-weight="900" fill="#A855F7" filter="url(#glow)">9</text>
+      <text font-size="44" font-weight="900" fill="#A855F7" filter="url(#glow)">10</text>
       <text y="36" font-size="13" fill="#475569">following</text>
     </g>
     <g transform="translate(300, 290)">
